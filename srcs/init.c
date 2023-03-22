@@ -6,7 +6,7 @@
 /*   By: jnicolas <marvin@42quebec.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 14:37:00 by jnicolas          #+#    #+#             */
-/*   Updated: 2023/03/16 17:46:40 by jnicolas         ###   ########.fr       */
+/*   Updated: 2023/03/22 15:44:27 by jnicolas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,8 @@ t_table	*create_table(int argc, char **argv)
 		table->must_eat_num = ft_atoi(argv[5]);
 	if (table->must_eat_num == 0)
 	{
-		printf("0ms all philo eat 0 time");
+		printf("0ms all philo eat 0 time\n");
+		printf("free and exit here???\n");
 	}
 	put_forks(table);
 	init_logger(table);
@@ -82,9 +83,8 @@ void	seat_philos(t_table *table)
 	philos = malloc(sizeof(t_philo) * table->nb_philo);
 	while (i < table->nb_philo)
 	{
-		philos[i].number_of_meals = 0;
-		philos[i].last_eat_time = 0;
 		philos[i].num = i;
+		philos[i].number_of_meals = 0;
 		philos[i].left_fork = i;
 		philos[i].right_fork = round_right(i, table->nb_philo);
 		philos[i].table = table;
@@ -99,20 +99,9 @@ void	seat_philos(t_table *table)
 
 t_status	check_status(t_philo *philo)
 {
-	// long long time_in_ms;
-	//  time_in_ms = get_time_in_ms();
-	//  if (philo->t_last_meal == 0)
-	//  	philo->t_last_meal = get_time_in_ms() - 1;
-	//  if (philo->data->status == dead)
-	//  	return (dead);
-	//  if (time_in_ms - philo->t_last_meal > philo->data->t_die)
-	//  {
-	//  	print_dead(philo);
-	//  	return (dead);
-	//  }
 	return (philo->status);
 }
-/*
+
 void	start_dinner(t_table *table)
 {
 	int	i;
@@ -125,7 +114,6 @@ void	start_dinner(t_table *table)
 		i++;
 	}
 }
-*/
 
 void	wait_dinner_end(t_table *table)
 {

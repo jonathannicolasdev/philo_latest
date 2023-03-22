@@ -6,7 +6,7 @@
 /*   By: jnicolas <marvin@42quebec.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 14:39:52 by jnicolas          #+#    #+#             */
-/*   Updated: 2023/03/16 17:09:02 by jnicolas         ###   ########.fr       */
+/*   Updated: 2023/03/22 13:00:21 by jnicolas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ int	check_args(int argc, char **argv)
 at least 1.\n"));
 	}
 	else
-		return (printf("Input the following :	[number_of_philosophers] [time_to_die] \
-[time_to_eat] [time_to_sleep]\nOptional input :	\
+		return (printf("Input the following arguments: [number_of_philosophers] [time_to_die] \
+[time_to_eat] [time_to_sleep]\n and the Optional input :	\
 [number_of_times_each_philosopher_must_eat]\n"));
 	return (0);
 }
