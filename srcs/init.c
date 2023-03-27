@@ -60,6 +60,7 @@ t_table	*create_table(int argc, char **argv)
 	table->eat_time = ft_atoi(argv[3]);
 	table->sleep_time = ft_atoi(argv[4]);
 	table->launch_time = get_time_in_ms();
+	table->dinner_inprogress = 1;
 	if (argc == 6)
 		table->must_eat_num = ft_atoi(argv[5]);
 	if (table->must_eat_num == 0)
