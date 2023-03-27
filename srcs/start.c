@@ -11,11 +11,6 @@
 /* ************************************************************************** */
 #include "philo.h"
 
-t_status	check_status(t_philo *philo)
-{
-	return (philo->status);
-}
-
 void	start_dinner(t_table *table)
 {
 	int	i;
@@ -34,7 +29,7 @@ void	wait_dinner_end(t_table *table)
 	int	i;
 
 	i = 0;
-    start_state_observer(table);
+	start_state_observer(table);
 	while (i < table->nb_philo)
 	{
 		pthread_join(table->philos[i].thread, NULL);
