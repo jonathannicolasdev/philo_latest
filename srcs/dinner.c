@@ -12,15 +12,6 @@
 
 #include "philo.h"
 
-void	*is_dead(void *void_philo)
-{
-	t_philo	*philo;
-
-	philo = void_philo;
-	while (1)
-		check_status(philo);
-}
-
 void	thinking(t_philo *philo)
 {
 	philo->status = THINK;
