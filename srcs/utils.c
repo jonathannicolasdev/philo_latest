@@ -77,17 +77,7 @@ void	log_status(t_philo *philo, char *str)
 
 void	print_dead(t_philo *philo)
 {
-	// long long	time_in_ms;
 	printf("%d", philo->num);
-	// pthread_mutex_lock(&philo->data->print);
-	// time_in_ms = get_time_in_ms() - philo->data->t_launch;
-	// if (philo->data->status == alive)
-	// {
-	// 	philo->data->status = dead;
-	// 	usleep(1000);
-	// 	printf("%lld %d died\n", time_in_ms, philo->id);
-	// }
-	// pthread_mutex_unlock(&philo->data->print);
 }
 
 int	round_left(int index, int n)
