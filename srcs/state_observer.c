@@ -10,6 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "philo.h"
+
 void	unlock_all_forks(t_table *table)
 {
 	int	i;
@@ -28,16 +30,17 @@ void	start_state_observer(t_table *table)
 	long long	eat_expire_time;
 
 	sleep(3);
-	while(table->dinner_inprogress)
+	i = 0;
+	while (table->dinner_inprogress)
 	{
 		while (i < table->nb_philo)
 		{
-			if (table->philo[i].eat_clock = -1)
+			if (table->philos[i].eat_clock == -1)
 				break ;
 			eat_expire_time = get_time_in_ms() - table->philos[i].eat_clock;
 			if (eat_expire_time > table->todie_time)
 			{
-				log_status(&(table->philos[i], " died"));
+				log_status(&(table->philos[i]), " died");
 				table->dinner_inprogress = 0;
 				exit(0);
 			}
@@ -45,5 +48,4 @@ void	start_state_observer(t_table *table)
 		}
 		usleep(10);
 	}
-
 }

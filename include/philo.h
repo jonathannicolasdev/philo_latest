@@ -40,12 +40,11 @@ typedef struct
 	int				eat_time;
 	int				sleep_time;
 	int				must_eat_num;
-	int				is_all_safe;
 	long long		launch_time;
+	int				dinner_inprogress;
 	pthread_mutex_t	*fork_mutex;
 	t_fork_status	*fork_status;
 	pthread_mutex_t	*logger_mutex;
-	pthread_mutex_t	eat;
 	pthread_mutex_t	*global_mutex;
 	struct _philo	*philos;
 }					t_table;
@@ -55,13 +54,12 @@ typedef struct _philo
 	int				num;
 	int				left_fork;
 	int				right_fork;
+	int				number_of_meals;
 	pthread_t		thread;
 	t_status		status;
-	int				die_clock;
-	int				eat_clock;
-	int				sleep_clock;
-	long long		last_eat_time;
-	int				number_of_meals;
+	long long		die_clock;
+	long long		eat_clock;
+	long long		sleep_clock;
 	t_table			*table;
 }					t_philo;
 
@@ -70,10 +68,11 @@ int					check_args(int argc, char **argv);
 t_status			check_status(t_philo *philo);
 void				print_philos(t_table *table);
 void				print_forks(t_table *table);
+void				start_state_observer(t_table *table);
 
 void				*dinner(void *void_philo);
 void				taking_fork(t_philo *philo);
-void				eating(t_philo *philo);
+void				eating(t_philo *philo, t_table *table);
 void				thinking(t_philo *philo);
 void				sleeping(t_philo *philo);
 void				*is_dead(void *void_philo);
@@ -83,7 +82,7 @@ void				init_logger(t_table *table);
 t_table				*create_table(int argc, char **argv);
 void				seat_philos(t_table *table);
 void				put_forks(t_table *table);
-//void				start_dinner(t_table *table);
+void				start_dinner(t_table *table);
 void				wait_dinner_end(t_table *table);
 
 int					ft_atoi(const char *nptr);
@@ -93,14 +92,5 @@ void				log_status(t_philo *philo, char *str);
 void				print_dead(t_philo *philo);
 int					round_left(int index, int n);
 int					round_right(int index, int n);
-
-
-long long			ft_get_time(void);
-void				ft_wait(t_table *table, int time);
-int					ft_start_philo(t_table *table, t_philo *philo);
-void				ft_check_die(t_table *table);
-int					check_eat_time(t_table *table);
-int					check_eat_num(t_table *table);
-int					start_dinner(t_table *table);
 
 #endif

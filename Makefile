@@ -1,6 +1,6 @@
 PROG	= philo
 
-SRCS 	= srcs/main.c srcs/utils.c srcs/init.c srcs/dinner.c srcs/start.c srcs/time.c
+SRCS 	= srcs/main.c srcs/utils.c srcs/init.c srcs/dinner.c srcs/state_observer.c
 
 OBJS 	= ${SRCS:.c=.o}
 
@@ -25,20 +25,5 @@ fclean: 	clean
 					@rm -f ${PROG}
 
 re:			fclean all
-
-emote:	
-					@echo "▒▒▒▒▒▒▒▒▄▄▄▄▄▄▄▄▄▄▒▒▒▒▒▒▒▒"
-					@echo "▒▒▒▒▒▄█▀▀░░░░░░░░▀▀█▄▒▒▒▒▒"
-					@echo "▒▒▒▄█▀▄██▄░░░░░░░░░░▀█▄▒▒▒"
-					@echo "▒▒█▀░▀░░▄▀░░░░░░▄▀▀▀▀░▀█▒▒"
-					@echo "▒█▀░░░░███░░░░░░▄█▄░░░░▀█▒"
-					@echo "▒█░░░░░░▀░░░░░░░▀█▀░░░░░█▒"
-					@echo "▒█░░░░░░░░░░░░░░░░░░░░░░█▒"
-					@echo "▒█░░██▄░░▀▀▀▀▄▄░░░░░░░░░█▒"
-					@echo "▒▀█░█░█░░░▄▄▄▄▄░░░░░░░░█▀▒"
-					@echo "▒▒▀█▀░▀▀▀▀░▄▄▄▀░░░░░░▄█▀▒▒"
-					@echo "▒▒▒█░░░░░░▀█░░░░░░░▄█▀▒▒▒▒"
-					@echo "▒▒▒█▄░░░░░▀█▄▄▄▄▄█▀▀▒▒▒▒▒▒"
-					@echo "▒▒▒▒▀▀▀▀▀▀▀▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒\n"
 
 .PHONY: all clean fclean re
