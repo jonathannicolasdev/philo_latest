@@ -84,6 +84,8 @@ void				seat_philos(t_table *table);
 void				put_forks(t_table *table);
 void				start_dinner(t_table *table);
 void				wait_dinner_end(t_table *table);
+void				notify_right_fork_release(t_table *table, int num);
+void				notify_left_fork_release(t_table *table, int num);
 
 int					ft_atoi(const char *nptr);
 long long			get_time_in_ms(void);
@@ -92,5 +94,4 @@ void				log_status(t_philo *philo, char *str);
 void				print_dead(t_philo *philo);
 int					round_left(int index, int n);
 int					round_right(int index, int n);
-
 #endif
