@@ -39,7 +39,7 @@ typedef struct
 	int				todie_time;
 	int				eat_time;
 	int				sleep_time;
-	int				must_eat_num;
+	int				number_of_eats;
 	long long		launch_time;
 	int				dinner_inprogress;
 	pthread_mutex_t	*fork_mutex;
@@ -54,7 +54,7 @@ typedef struct _philo
 	int				num;
 	int				left_fork;
 	int				right_fork;
-	int				number_of_meals;
+	int				counter_of_eats;
 	pthread_t		thread;
 	t_status		status;
 	long long		die_clock;
@@ -79,7 +79,7 @@ void				*is_dead(void *void_philo);
 void				init_global_mutex(t_table *table);
 void				init_logger(t_table *table);
 
-t_table				*create_table(int argc, char **argv);
+t_table				*create_table(char **argv);
 void				seat_philos(t_table *table);
 void				put_forks(t_table *table);
 void				start_dinner(t_table *table);
