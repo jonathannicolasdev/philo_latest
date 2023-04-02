@@ -123,3 +123,16 @@ void	print_forks(t_table *table)
 	}
 	printf("\n");
 }
+
+void sleep_duration(long long duration)
+{
+	long long start, end;
+	start = get_time_in_ms();
+	while (1)
+	{
+		end = get_time_in_ms();
+		if ((end - start) >= duration)
+			break;
+	}
+}
+

@@ -50,7 +50,7 @@ void	init_global_mutex(t_table *table)
 	table->global_mutex = globalmutex;
 }
 
-t_table	*create_table(int argc, char **argv)
+t_table	*create_table(char **argv)
 {
 	t_table	*table;
 
@@ -59,15 +59,12 @@ t_table	*create_table(int argc, char **argv)
 	table->todie_time = ft_atoi(argv[2]);
 	table->eat_time = ft_atoi(argv[3]);
 	table->sleep_time = ft_atoi(argv[4]);
+	if (!argv[5])
+		table->number_of_eats = -1;
+	else
+		table->number_of_eats = ft_atoi(argv[5]);
 	table->launch_time = get_time_in_ms();
 	table->dinner_inprogress = 1;
-	if (argc == 6)
-		table->must_eat_num = ft_atoi(argv[5]);
-	if (table->must_eat_num == 0)
-	{
-		printf("0ms all philo eat 0 time\n");
-		printf("free and exit here???\n");
-	}
 	put_forks(table);
 	init_logger(table);
 	init_global_mutex(table);
@@ -85,7 +82,7 @@ void	seat_philos(t_table *table)
 	while (i < table->nb_philo)
 	{
 		philos[i].num = i;
-		philos[i].number_of_meals = 0;
+		philos[i].counter_of_eats = 0;
 		philos[i].left_fork = i;
 		philos[i].right_fork = round_right(i, table->nb_philo);
 		philos[i].table = table;

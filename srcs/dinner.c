@@ -77,9 +77,9 @@ void	notify_left_fork_release(t_table *table, int num)
 			table->philos[left3].eat_clock >= table->philos[left2].eat_clock)
 		{
 			table->fork_status[philo->left_fork] = TAKEN;
-			log_status(&table->philos[philo->left_fork], "Has taken a fork");
+			log_status(&table->philos[left2], "Has taken a fork");
 			table->fork_status[left2] = TAKEN;
-			log_status(&table->philos[philo->left_fork], "Has taken a fork");
+			log_status(&table->philos[left2], "Has taken a fork");
 			pthread_mutex_unlock(&(table->fork_mutex[left2]));
 		}
 	}
@@ -94,6 +94,7 @@ void	eating(t_philo *philo, t_table *table)
 	philo->status = EAT;
 	log_status(philo, "is eating");
 	philo->eat_clock = get_time_in_ms();
+	philo->counter_of_eats++;
 	usleep(table->eat_time * 1000);
 	pthread_mutex_lock(table->global_mutex);
 	philo->status = SLEEP;
@@ -101,23 +102,6 @@ void	eating(t_philo *philo, t_table *table)
 	table->fork_status[philo->right_fork] = FREE;
 	notify_right_fork_release(table, philo->num);
 	notify_left_fork_release(table, philo->num);
-
-	/*
-	if (table->fork_status[left2] == FREE
-		&& table->philos[left2].status == THINK)
-	{
-		left3 = round_left(left2, philo->table->nb_philo);
-		if (table->philos[left3].status != THINK
-			|| table->philos[left3].eat_clock >= table->philos[left2].eat_clock)
-		{
-			table->fork_status[philo->left_fork] = TAKEN;
-			log_status(&table->philos[left2], "Has taken a fork");
-			table->fork_status[left2] = TAKEN;
-			log_status(&table->philos[left2], "Has taken a fork");
-			pthread_mutex_unlock(&(table->fork_mutex[left2]));
-		}
-	}
-	*/
 	pthread_mutex_unlock(table->global_mutex);
 }
 
@@ -127,6 +111,14 @@ void	sleeping(t_philo *philo)
 	usleep(philo->table->sleep_time * 1000);
 }
 
+int eatcount_constraint(t_philo *philo, t_table *table)
+{
+	if (table->number_of_eats > 0 && philo->counter_of_eats >= table->number_of_eats)
+		return 1;
+	else
+		return 0;
+}
+
 void	*dinner(void *void_philo)
 {
 	t_philo	*philo;
@@ -134,9 +126,8 @@ void	*dinner(void *void_philo)
 
 	philo = void_philo;
 	table = philo->table;
-	//if (philo->num % 2 == 1)
-	//	usleep(philo->table->eat_time);
-	while (philo->table->dinner_inprogress)
+	philo->eat_clock = get_time_in_ms();
+	while (philo->table->dinner_inprogress && !eatcount_constraint(philo, table))
 	{
 		
 		eating(philo, table);

@@ -42,7 +42,7 @@ int	main(int argc, char **argv)
 
 	if (check_args(argc, argv) != 0)
 		return (1);
-	table = create_table(argc, argv);
+	table = create_table(argv);
 	start_dinner(table);
 	wait_dinner_end(table);
 }
