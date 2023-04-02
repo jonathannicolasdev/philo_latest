@@ -96,5 +96,6 @@ int					round_left(int index, int n);
 int					round_right(int index, int n);
 
 int 				eatcount_constraint(t_philo *philo, t_table *table);
+void				sleep_duration(long long duration);
 
 #endif

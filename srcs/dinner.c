@@ -95,7 +95,8 @@ void	eating(t_philo *philo, t_table *table)
 	log_status(philo, "is eating");
 	philo->eat_clock = get_time_in_ms();
 	philo->counter_of_eats++;
-	usleep(table->eat_time * 1000);
+	sleep_duration(table->eat_time);
+	//usleep(table->eat_time * 1000);
 	pthread_mutex_lock(table->global_mutex);
 	philo->status = SLEEP;
 	table->fork_status[philo->left_fork] = FREE;
@@ -108,7 +109,8 @@ void	eating(t_philo *philo, t_table *table)
 void	sleeping(t_philo *philo)
 {
 	log_status(philo, "is sleeping");
-	usleep(philo->table->sleep_time * 1000);
+	sleep_duration(philo->table->sleep_time);
+	//usleep(philo->table->sleep_time * 1000);
 }
 
 int eatcount_constraint(t_philo *philo, t_table *table)
@@ -129,7 +131,6 @@ void	*dinner(void *void_philo)
 	philo->eat_clock = get_time_in_ms();
 	while (philo->table->dinner_inprogress && !eatcount_constraint(philo, table))
 	{
-		
 		eating(philo, table);
 		sleeping(philo);
 		thinking(philo);

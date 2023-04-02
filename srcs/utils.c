@@ -49,22 +49,6 @@ long long	get_time_in_ms(void)
 	return (time_in_ms);
 }
 
-void	smart_sleep(long long time, t_philo *philo)
-{
-	// long long	time_in_ms;
-	printf("%d %lld", philo->num, time);
-	// time_in_ms = get_time_in_ms();
-	// check_status(philo);
-	// while (philo->data->status == alive)
-	// {
-	// 	if (get_time_in_ms() - time_in_ms > philo->data->t_die - 1)
-	// 		print_dead(philo);
-	// 	if (get_time_in_ms() - time_in_ms >= time)
-	// 		break ;
-	// 	usleep(50);
-	// }
-}
-
 void	log_status(t_philo *philo, char *str)
 {
 	long long	time_in_ms;
@@ -96,19 +80,6 @@ int	round_right(int index, int n)
 		return (index + 1);
 }
 
-void	print_philos(t_table *table)
-{
-	t_philo	*philos;
-	int		i;
-
-	philos = table->philos;
-	for (i = 0; i < table->nb_philo; i++)
-	{
-		printf("[%d <- %d ->%d]\n", philos[i].left_fork, philos[i].num,
-				philos[i].right_fork);
-	}
-}
-
 void	print_forks(t_table *table)
 {
 	int	i;
@@ -135,4 +106,3 @@ void sleep_duration(long long duration)
 			break;
 	}
 }
-
