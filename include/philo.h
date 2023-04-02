@@ -94,4 +94,7 @@ void				log_status(t_philo *philo, char *str);
 void				print_dead(t_philo *philo);
 int					round_left(int index, int n);
 int					round_right(int index, int n);
+
+int 				eatcount_constraint(t_philo *philo, t_table *table);
+
 #endif

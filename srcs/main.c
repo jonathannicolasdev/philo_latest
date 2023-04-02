@@ -12,7 +12,6 @@
 
 #include "philo.h"
 
-
 int	check_args(int argc, char **argv)
 {
 	if (argc > 4 && argc <= 6)
@@ -27,12 +26,11 @@ int	check_args(int argc, char **argv)
 			return (printf("Time to sleep must be at least 1.\n"));
 		if (argc == 6 && ft_atoi(argv[5]) < 1)
 			return (printf("Number of times each philosopher must eat must be \
-at least 1.\n"));
+			at least 1.\n"));
 	}
 	else
-		return (printf("Input the following arguments: [number_of_philosophers] [time_to_die] \
-[time_to_eat] [time_to_sleep]\n and the Optional input :	\
-[number_of_times_each_philosopher_must_eat]\n"));
+		return (printf("Arguments: nb_philo todie_time eat_time sleep_time\nOptional input :\
+		number_of_eats\n"));
 	return (0);
 }
 
@@ -45,4 +43,5 @@ int	main(int argc, char **argv)
 	table = create_table(argv);
 	start_dinner(table);
 	wait_dinner_end(table);
+	return (0);
 }
