@@ -12,6 +12,7 @@
 
 #include "philo.h"
 
+
 int	check_args(int argc, char **argv)
 {
 	if (argc > 4 && argc <= 6)
