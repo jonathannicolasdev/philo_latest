@@ -70,6 +70,10 @@ t_status			check_status(t_philo *philo);
 void				print_philos(t_table *table);
 void				print_forks(t_table *table);
 void				start_state_observer(t_table *table);
+void 				write_eat_clock(int num_philo, long long value, t_table *table);
+long long 			read_eat_clock(int num_philo, t_table *table);
+void 				write_dinner_inprogress(int value, t_table *table);
+int 				read_dinner_inprogress(t_table *table);
 
 void				*dinner(void *void_philo);
 void				taking_fork(t_philo *philo);

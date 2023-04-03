@@ -68,7 +68,7 @@ void	notify_left_fork_release(t_table *table, int num)
 		&& read_status(left2, table) == THINK)
 	{
 		if (read_status(left3, table) != THINK || \
-			table->philos[left3].eat_clock >= table->philos[left2].eat_clock)
+			read_eat_clock(left3, table) >= read_eat_clock(left2, table))
 		{
 			table->fork_status[philo->left_fork] = TAKEN;
 			log_status(&table->philos[left2], "Has taken a fork");
@@ -109,6 +109,7 @@ void	*dinner(void *void_philo)
 	philo = void_philo;
 	table = philo->table;
 	philo->eat_clock = get_time_in_ms();
+	//write_eat_clock(philo->num, get_time_in_ms(), table);
 	while (philo->table->dinner_inprogress \
 		&& !eatcount_constraint(philo, table))
 	{

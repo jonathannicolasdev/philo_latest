@@ -93,3 +93,37 @@ t_status	read_status(int num_philo, t_table *table)
 	pthread_mutex_unlock(table->race_mutex);
 	return (value);
 }
+
+void write_eat_clock(int num_philo, long long value, t_table *table)
+{
+	pthread_mutex_lock(table->race_mutex);
+	table->philos[num_philo].eat_clock = value;
+	pthread_mutex_unlock(table->race_mutex);
+}
+
+long long read_eat_clock(int num_philo, t_table *table)
+{
+	long long value;
+
+	pthread_mutex_lock(table->race_mutex);
+	value = table->philos[num_philo].eat_clock;
+	pthread_mutex_unlock(table->race_mutex);
+	return (value);
+}
+
+void write_dinner_inprogress(int value, t_table *table)
+{
+	pthread_mutex_lock(table->race_mutex);
+	table->dinner_inprogress = value;
+	pthread_mutex_unlock(table->race_mutex);
+}
+
+int read_dinner_inprogress(t_table *table)
+{
+	int value;
+
+	pthread_mutex_lock(table->race_mutex);
+	value = table->dinner_inprogress;
+	pthread_mutex_unlock(table->race_mutex);
+	return (value);
+}
