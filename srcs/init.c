@@ -32,31 +32,27 @@ void	put_forks(t_table *table)
 	table->fork_status = fork_status;
 }
 
-void	init_logger(t_table *table)
+void	seat_philos(t_table *table)
 {
-	pthread_mutex_t	*loggermutex;
+	t_philo	*philos;
+	int		i;
 
-	loggermutex = malloc(sizeof(pthread_mutex_t));
-	pthread_mutex_init(loggermutex, NULL);
-	table->logger_mutex = loggermutex;
-}
-
-void	init_global_mutex(t_table *table)
-{
-	pthread_mutex_t	*globalmutex;
-
-	globalmutex = malloc(sizeof(pthread_mutex_t));
-	pthread_mutex_init(globalmutex, NULL);
-	table->global_mutex = globalmutex;
-}
-
-void init_race_mutex(t_table *table)
-{
-	pthread_mutex_t *racemutex;
-
-	racemutex = malloc(sizeof(pthread_mutex_t));
-	pthread_mutex_init(racemutex, NULL);
-	table->race_mutex = racemutex;
+	i = 0;
+	philos = malloc(sizeof(t_philo) * table->nb_philo);
+	while (i < table->nb_philo)
+	{
+		philos[i].num = i;
+		philos[i].counter_of_eats = 0;
+		philos[i].left_fork = i;
+		philos[i].right_fork = round_right(i, table->nb_philo);
+		philos[i].table = table;
+		philos[i].status = THINK;
+		philos[i].die_clock = -1;
+		philos[i].eat_clock = -1;
+		philos[i].sleep_clock = -1;
+		i++;
+	}
+	table->philos = philos;
 }
 
 t_table	*create_table(char **argv)
@@ -80,27 +76,4 @@ t_table	*create_table(char **argv)
 	init_race_mutex(table);
 	seat_philos(table);
 	return (table);
-}
-
-void	seat_philos(t_table *table)
-{
-	t_philo	*philos;
-	int		i;
-
-	i = 0;
-	philos = malloc(sizeof(t_philo) * table->nb_philo);
-	while (i < table->nb_philo)
-	{
-		philos[i].num = i;
-		philos[i].counter_of_eats = 0;
-		philos[i].left_fork = i;
-		philos[i].right_fork = round_right(i, table->nb_philo);
-		philos[i].table = table;
-		philos[i].status = THINK;
-		philos[i].die_clock = -1;
-		philos[i].eat_clock = -1;
-		philos[i].sleep_clock = -1;
-		i++;
-	}
-	table->philos = philos;
 }

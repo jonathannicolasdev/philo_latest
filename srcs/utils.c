@@ -38,31 +38,12 @@ int	ft_atoi(const char *nptr)
 	}
 	return (num * sign);
 }
-
-long long	get_time_in_ms(void)
-{
-	struct timeval	tv;
-	long long		time_in_ms;
-
-	gettimeofday(&tv, NULL);
-	time_in_ms = (tv.tv_sec) * 1000 + (tv.tv_usec) / 1000;
-	return (time_in_ms);
-}
-
-void	log_status(t_philo *philo, char *str)
-{
-	long long	time_in_ms;
-
-	pthread_mutex_lock(philo->table->logger_mutex);
-	time_in_ms = get_time_in_ms() - philo->table->launch_time;
-	printf("%lld %d %s\n", time_in_ms, philo->num, str);
-	pthread_mutex_unlock(philo->table->logger_mutex);
-}
-
+/*
 void	print_dead(t_philo *philo)
 {
 	printf("%d", philo->num);
 }
+*/
 
 int	round_left(int index, int n)
 {
@@ -79,7 +60,7 @@ int	round_right(int index, int n)
 	else
 		return (index + 1);
 }
-
+/*
 void	print_forks(t_table *table)
 {
 	int	i;
@@ -94,32 +75,21 @@ void	print_forks(t_table *table)
 	}
 	printf("\n");
 }
+*/
 
-void sleep_duration(long long duration)
-{
-	long long start, end;
-	start = get_time_in_ms();
-	while (1)
-	{
-		end = get_time_in_ms();
-		if ((end - start) >= duration)
-			break;
-		usleep(30);
-	}
-}
-
-void write_status(int num_philo, t_status value, t_table *table)
+void	write_status(int num_philo, t_status value, t_table *table)
 {
 	pthread_mutex_lock(table->race_mutex);
 	table->philos[num_philo].status = value;
 	pthread_mutex_unlock(table->race_mutex);
 }
 
-t_status read_status(int num_philo,t_table *table)
+t_status	read_status(int num_philo, t_table *table)
 {
-	t_status value;
+	t_status	value;
+
 	pthread_mutex_lock(table->race_mutex);
-	value=table->philos[num_philo].status;
+	value = table->philos[num_philo].status;
 	pthread_mutex_unlock(table->race_mutex);
-	return value;
+	return (value);
 }

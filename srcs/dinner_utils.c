@@ -6,7 +6,7 @@
 /*   By: jnicolas <marvin@42quebec.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 14:36:36 by jnicolas          #+#    #+#             */
-/*   Updated: 2023/03/27 16:16:01 by jnicolas         ###   ########.fr       */
+/*   Updated: 2023/04/02 20:40:23 by jnicolas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	sleeping(t_philo *philo)
 	sleep_duration(philo->table->sleep_time);
 }
 
-int eatcount_constraint(t_philo *philo, t_table *table)
+int	eatcount_constraint(t_philo *philo, t_table *table)
 {
 	int	number_eats;
 	int	counter_eats;

@@ -1,6 +1,6 @@
 PROG	= philo
 
-SRCS 	= srcs/main.c srcs/utils.c srcs/init.c srcs/dinner.c srcs/state_observer.c srcs/start.c srcs/dinner_utils.c
+SRCS 	= srcs/main.c srcs/utils.c srcs/init.c srcs/dinner.c srcs/state_observer.c srcs/start.c srcs/dinner_utils.c srcs/init_utils.c srcs/utils_utils.c
 
 OBJS 	= ${SRCS:.c=.o}
 

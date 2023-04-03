@@ -79,6 +79,7 @@ void				sleeping(t_philo *philo);
 void				*is_dead(void *void_philo);
 void				init_global_mutex(t_table *table);
 void				init_logger(t_table *table);
+void				init_race_mutex(t_table *table);
 
 t_table				*create_table(char **argv);
 void				seat_philos(t_table *table);
