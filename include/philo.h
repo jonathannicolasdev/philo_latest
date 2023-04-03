@@ -46,6 +46,7 @@ typedef struct
 	t_fork_status	*fork_status;
 	pthread_mutex_t	*logger_mutex;
 	pthread_mutex_t	*global_mutex;
+	pthread_mutex_t	*race_mutex;
 	struct _philo	*philos;
 }					t_table;
 
@@ -97,5 +98,6 @@ int					round_right(int index, int n);
 
 int 				eatcount_constraint(t_philo *philo, t_table *table);
 void				sleep_duration(long long duration);
-
+void				write_status(int num_philo, t_status value, t_table *table);
+t_status			read_status(int num_philo, t_table *table);
 #endif

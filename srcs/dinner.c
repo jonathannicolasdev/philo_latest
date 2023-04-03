@@ -11,12 +11,19 @@
 /* ************************************************************************** */
 
 #include "philo.h"
-
+/*
 void	thinking(t_philo *philo)
 {
-	philo->status = THINK;
+	write_status(philo->num, THINK, philo->table);
 	log_status(philo, "is thinking");
 }
+
+void	sleeping(t_philo *philo)
+{
+	log_status(philo, "is sleeping");
+	sleep_duration(philo->table->sleep_time);
+}
+*/
 
 int	forks_taken(t_philo *philo, t_table *table)
 {
@@ -46,9 +53,9 @@ void	notify_right_fork_release(t_table *table, int num)
 	philo = &table->philos[num];
 	right2 = round_right(philo->right_fork, philo->table->nb_philo);
 	if (table->fork_status[right2] == FREE
-		&& table->philos[philo->right_fork].status == THINK)
+		&& read_status(philo->right_fork, table) == THINK)
 	{
-		if (table->philos[right2].status != THINK
+		if (read_status(right2, table) != THINK
 			|| table->philos[right2].eat_clock >= \
 			table->philos[philo->right_fork].eat_clock)
 		{
@@ -71,9 +78,9 @@ void	notify_left_fork_release(t_table *table, int num)
 	left2 = round_left(philo->left_fork, philo->table->nb_philo);
 	left3 = round_left(left2, philo->table->nb_philo);
 	if (table->fork_status[left2] == FREE
-		&& table->philos[left2].status == THINK)
+		&& read_status(left2, table) == THINK)
 	{
-		if (table->philos[left3].status != THINK || \
+		if (read_status(left3, table) != THINK || \
 			table->philos[left3].eat_clock >= table->philos[left2].eat_clock)
 		{
 			table->fork_status[philo->left_fork] = TAKEN;
@@ -96,7 +103,6 @@ void	eating(t_philo *philo, t_table *table)
 	philo->eat_clock = get_time_in_ms();
 	philo->counter_of_eats++;
 	sleep_duration(table->eat_time);
-	//usleep(table->eat_time * 1000);
 	pthread_mutex_lock(table->global_mutex);
 	philo->status = SLEEP;
 	table->fork_status[philo->left_fork] = FREE;
@@ -105,22 +111,23 @@ void	eating(t_philo *philo, t_table *table)
 	notify_left_fork_release(table, philo->num);
 	pthread_mutex_unlock(table->global_mutex);
 }
-
-void	sleeping(t_philo *philo)
-{
-	log_status(philo, "is sleeping");
-	sleep_duration(philo->table->sleep_time);
-	//usleep(philo->table->sleep_time * 1000);
-}
-
+/*
 int eatcount_constraint(t_philo *philo, t_table *table)
 {
-	if (table->number_of_eats > 0 && philo->counter_of_eats >= table->number_of_eats)
-		return 1;
-	else
-		return 0;
-}
+	int	number_eats;
+	int	counter_eats;
 
+	pthread_mutex_lock(table->race_mutex);
+	number_eats = table->number_of_eats;
+	counter_eats = philo->counter_of_eats;
+	pthread_mutex_unlock(table->race_mutex);
+	if (table->number_of_eats > 0 \
+		&& philo->counter_of_eats >= table->number_of_eats)
+		return (1);
+	else
+		return (0);
+}
+*/
 void	*dinner(void *void_philo)
 {
 	t_philo	*philo;

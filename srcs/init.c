@@ -50,6 +50,15 @@ void	init_global_mutex(t_table *table)
 	table->global_mutex = globalmutex;
 }
 
+void init_race_mutex(t_table *table)
+{
+	pthread_mutex_t *racemutex;
+
+	racemutex = malloc(sizeof(pthread_mutex_t));
+	pthread_mutex_init(racemutex, NULL);
+	table->race_mutex = racemutex;
+}
+
 t_table	*create_table(char **argv)
 {
 	t_table	*table;
@@ -68,6 +77,7 @@ t_table	*create_table(char **argv)
 	put_forks(table);
 	init_logger(table);
 	init_global_mutex(table);
+	init_race_mutex(table);
 	seat_philos(table);
 	return (table);
 }

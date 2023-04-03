@@ -21,6 +21,7 @@ void	start_dinner(t_table *table)
 		pthread_create(&table->philos[i].thread, NULL, dinner,
 			&table->philos[i]);
 		i++;
+		usleep(300);
 	}
 }
 

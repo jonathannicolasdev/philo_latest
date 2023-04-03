@@ -28,7 +28,7 @@ void	ft_wait(t_table *table, int time)
 	long long start_time;
 
 	start_time = ft_get_time();
-	while (table->is_all_safe)
+	while (1)
 	{
 		now_time = ft_get_time();
 		if (now_time - start_time >= time)

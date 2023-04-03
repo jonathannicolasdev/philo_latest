@@ -104,5 +104,22 @@ void sleep_duration(long long duration)
 		end = get_time_in_ms();
 		if ((end - start) >= duration)
 			break;
+		usleep(30);
 	}
+}
+
+void write_status(int num_philo, t_status value, t_table *table)
+{
+	pthread_mutex_lock(table->race_mutex);
+	table->philos[num_philo].status = value;
+	pthread_mutex_unlock(table->race_mutex);
+}
+
+t_status read_status(int num_philo,t_table *table)
+{
+	t_status value;
+	pthread_mutex_lock(table->race_mutex);
+	value=table->philos[num_philo].status;
+	pthread_mutex_unlock(table->race_mutex);
+	return value;
 }
