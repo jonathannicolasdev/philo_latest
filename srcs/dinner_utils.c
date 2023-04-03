@@ -33,8 +33,8 @@ int	eatcount_constraint(t_philo *philo, t_table *table)
 	number_eats = table->number_of_eats;
 	counter_eats = philo->counter_of_eats;
 	pthread_mutex_unlock(table->race_mutex);
-	if (table->number_of_eats > 0 \
-		&& philo->counter_of_eats >= table->number_of_eats)
+	if (number_eats > 0 \
+		&& counter_eats >= number_eats)
 		return (1);
 	else
 		return (0);

@@ -8,14 +8,15 @@ HEADER	= -Iinclude
 
 CC 		= gcc
 CFLAGS 	= -Wall -Wextra -Werror -g
+SANIT   = -fsanitize=thread
 
 .c.o:		
-					@$(CC) ${CFLAGS} ${HEADER} -c $< -o $(<:.c=.o)
+					@$(CC) ${CFLAGS} ${SANIT} ${HEADER} -c $< -o $(<:.c=.o)
 
 all:	${PROG}
 
 ${PROG}:	${OBJS}
-					@$(CC) ${OBJS} -o ${PROG} -lpthread
+					@$(CC) ${SANIT} ${OBJS} -o ${PROG} -lpthread
 					@echo "\n\033[32m\033[1m  Philosophers Compiled\n\033[0m"
 
 clean:

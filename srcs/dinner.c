@@ -85,10 +85,12 @@ void	eating(t_philo *philo, t_table *table)
 	{
 		pthread_mutex_lock(&(table->fork_mutex[philo->num]));
 	}
+	pthread_mutex_lock(table->race_mutex);
 	philo->status = EAT;
-	log_status(philo, "is eating");
 	philo->eat_clock = get_time_in_ms();
 	philo->counter_of_eats++;
+	pthread_mutex_unlock(table->race_mutex);
+	log_status(philo, "is eating");
 	sleep_duration(table->eat_time);
 	pthread_mutex_lock(table->global_mutex);
 	philo->status = SLEEP;
