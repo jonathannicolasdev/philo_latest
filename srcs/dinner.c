@@ -42,9 +42,9 @@ void	notify_right_fork_release(t_table *table, int num)
 	if (table->fork_status[right2] == FREE
 		&& read_status(philo->right_fork, table) == THINK)
 	{
-		if (read_status(right2, table) != THINK
-			|| table->philos[right2].eat_clock >= \
-			table->philos[philo->right_fork].eat_clock)
+		if (read_status(right2, table) != THINK || \
+			read_eat_clock(right2, table) >= \
+			read_eat_clock(philo->right_fork, table))
 		{
 			table->fork_status[philo->right_fork] = TAKEN;
 			log_status(&table->philos[philo->right_fork], "Has taken a fork");
@@ -108,8 +108,9 @@ void	*dinner(void *void_philo)
 
 	philo = void_philo;
 	table = philo->table;
-	philo->eat_clock = get_time_in_ms();
-	//write_eat_clock(philo->num, get_time_in_ms(), table);
+	//philo->eat_clock = get_time_in_ms();
+	//if read_dinner_in progress
+	write_eat_clock(philo->num, get_time_in_ms(), table);
 	while (philo->table->dinner_inprogress \
 		&& !eatcount_constraint(philo, table))
 	{

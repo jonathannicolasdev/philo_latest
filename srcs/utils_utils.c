@@ -12,6 +12,23 @@
 
 #include "philo.h"
 
+void write_eat_clock(int num_philo, long long value, t_table *table)
+{
+	pthread_mutex_lock(table->race_mutex);
+	table->philos[num_philo].eat_clock = value;
+	pthread_mutex_unlock(table->race_mutex);
+}
+
+long long read_eat_clock(int num_philo, t_table *table)
+{
+	long long value;
+
+	pthread_mutex_lock(table->race_mutex);
+	value = table->philos[num_philo].eat_clock;
+	pthread_mutex_unlock(table->race_mutex);
+	return (value);
+}
+
 long long	get_time_in_ms(void)
 {
 	struct timeval	tv;
@@ -20,16 +37,6 @@ long long	get_time_in_ms(void)
 	gettimeofday(&tv, NULL);
 	time_in_ms = (tv.tv_sec) * 1000 + (tv.tv_usec) / 1000;
 	return (time_in_ms);
-}
-
-void	log_status(t_philo *philo, char *str)
-{
-	long long	time_in_ms;
-
-	pthread_mutex_lock(philo->table->logger_mutex);
-	time_in_ms = get_time_in_ms() - philo->table->launch_time;
-	printf("%lld %d %s\n", time_in_ms, philo->num, str);
-	pthread_mutex_unlock(philo->table->logger_mutex);
 }
 
 void	sleep_duration(long long duration)
@@ -45,4 +52,14 @@ void	sleep_duration(long long duration)
 			break ;
 		usleep(30);
 	}
+}
+
+void	log_status(t_philo *philo, char *str)
+{
+	long long	time_in_ms;
+
+	pthread_mutex_lock(philo->table->logger_mutex);
+	time_in_ms = get_time_in_ms() - philo->table->launch_time;
+	printf("%lld %d %s\n", time_in_ms, philo->num, str);
+	pthread_mutex_unlock(philo->table->logger_mutex);
 }

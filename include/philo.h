@@ -64,45 +64,47 @@ typedef struct _philo
 	t_table			*table;
 }					t_philo;
 
+//main.c
 int					main(int argc, char **argv);
 int					check_args(int argc, char **argv);
-t_status			check_status(t_philo *philo);
-void				print_philos(t_table *table);
-void				print_forks(t_table *table);
+//init.c
+void				init_logger(t_table *table);
+void				init_global_mutex(t_table *table);
+void				init_race_mutex(t_table *table);
+void				seat_philos(t_table *table);
+void				put_forks(t_table *table);
+t_table				*create_table(char **argv);
+//start.c
+void				start_dinner(t_table *table);
+void				wait_dinner_end(t_table *table);
+//dinner.c
+int					forks_taken(t_philo *philo, t_table *table);
+void				notify_right_fork_release(t_table *table, int num);
+void				notify_left_fork_release(t_table *table, int num);
+void				eating(t_philo *philo, t_table *table);
+void				*dinner(void *void_philo);
+void				thinking(t_philo *philo);
+void				sleeping(t_philo *philo);
+//stateobserver.c
+void				unlock_all_forks(t_table *table);
+int 				eatcount_constraint(t_philo *philo, t_table *table);
 void				start_state_observer(t_table *table);
-void 				write_eat_clock(int num_philo, long long value, t_table *table);
-long long 			read_eat_clock(int num_philo, t_table *table);
+//utils.c
+int					ft_atoi(const char *nptr);
+int					round_left(int index, int n);
+int					round_right(int index, int n);
+void				write_status(int num_philo, t_status value, t_table *table);
+t_status			read_status(int num_philo, t_table *table);
 void 				write_dinner_inprogress(int value, t_table *table);
 int 				read_dinner_inprogress(t_table *table);
 
-void				*dinner(void *void_philo);
-void				taking_fork(t_philo *philo);
-void				eating(t_philo *philo, t_table *table);
-void				thinking(t_philo *philo);
-void				sleeping(t_philo *philo);
-void				*is_dead(void *void_philo);
-void				init_global_mutex(t_table *table);
-void				init_logger(t_table *table);
-void				init_race_mutex(t_table *table);
-
-t_table				*create_table(char **argv);
-void				seat_philos(t_table *table);
-void				put_forks(t_table *table);
-void				start_dinner(t_table *table);
-void				wait_dinner_end(t_table *table);
-void				notify_right_fork_release(t_table *table, int num);
-void				notify_left_fork_release(t_table *table, int num);
-
-int					ft_atoi(const char *nptr);
+void				write_eat_clock(int num_philo, \
+					long long value, t_table *table);
+long long 			read_eat_clock(int num_philo, t_table *table);
 long long			get_time_in_ms(void);
-void				smart_sleep(long long time, t_philo *philo);
-void				log_status(t_philo *philo, char *str);
-void				print_dead(t_philo *philo);
-int					round_left(int index, int n);
-int					round_right(int index, int n);
-
-int 				eatcount_constraint(t_philo *philo, t_table *table);
 void				sleep_duration(long long duration);
-void				write_status(int num_philo, t_status value, t_table *table);
-t_status			read_status(int num_philo, t_table *table);
+void				log_status(t_philo *philo, char *str);
+
+void				print_philos(t_table *table);
+void				print_forks(t_table *table);
 #endif

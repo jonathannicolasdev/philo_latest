@@ -38,12 +38,6 @@ int	ft_atoi(const char *nptr)
 	}
 	return (num * sign);
 }
-/*
-void	print_dead(t_philo *philo)
-{
-	printf("%d", philo->num);
-}
-*/
 
 int	round_left(int index, int n)
 {
@@ -60,22 +54,6 @@ int	round_right(int index, int n)
 	else
 		return (index + 1);
 }
-/*
-void	print_forks(t_table *table)
-{
-	int	i;
-
-	printf("\nForks status: ");
-	for (i = 0; i < table->nb_philo; i++)
-	{
-		if (table->fork_status[i] == FREE)
-			printf("%2d:free,", i);
-		else
-			printf("%2d:taken,", i);
-	}
-	printf("\n");
-}
-*/
 
 void	write_status(int num_philo, t_status value, t_table *table)
 {
@@ -90,23 +68,6 @@ t_status	read_status(int num_philo, t_table *table)
 
 	pthread_mutex_lock(table->race_mutex);
 	value = table->philos[num_philo].status;
-	pthread_mutex_unlock(table->race_mutex);
-	return (value);
-}
-
-void write_eat_clock(int num_philo, long long value, t_table *table)
-{
-	pthread_mutex_lock(table->race_mutex);
-	table->philos[num_philo].eat_clock = value;
-	pthread_mutex_unlock(table->race_mutex);
-}
-
-long long read_eat_clock(int num_philo, t_table *table)
-{
-	long long value;
-
-	pthread_mutex_lock(table->race_mutex);
-	value = table->philos[num_philo].eat_clock;
 	pthread_mutex_unlock(table->race_mutex);
 	return (value);
 }
@@ -127,3 +88,20 @@ int read_dinner_inprogress(t_table *table)
 	pthread_mutex_unlock(table->race_mutex);
 	return (value);
 }
+
+/*
+void	print_forks(t_table *table)
+{
+	int	i;
+
+	printf("\nForks status: ");
+	for (i = 0; i < table->nb_philo; i++)
+	{
+		if (table->fork_status[i] == FREE)
+			printf("%2d:free,", i);
+		else
+			printf("%2d:taken,", i);
+	}
+	printf("\n");
+}
+*/
