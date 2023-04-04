@@ -12,16 +12,16 @@
 
 #include "philo.h"
 
-void write_eat_clock(int num_philo, long long value, t_table *table)
+void	write_eat_clock(int num_philo, long long value, t_table *table)
 {
 	pthread_mutex_lock(table->race_mutex);
 	table->philos[num_philo].eat_clock = value;
 	pthread_mutex_unlock(table->race_mutex);
 }
 
-long long read_eat_clock(int num_philo, t_table *table)
+long long	read_eat_clock(int num_philo, t_table *table)
 {
-	long long value;
+	long long	value;
 
 	pthread_mutex_lock(table->race_mutex);
 	value = table->philos[num_philo].eat_clock;

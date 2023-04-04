@@ -72,16 +72,16 @@ t_status	read_status(int num_philo, t_table *table)
 	return (value);
 }
 
-void write_dinner_inprogress(int value, t_table *table)
+void	write_dinner_inprogress(int value, t_table *table)
 {
 	pthread_mutex_lock(table->race_mutex);
 	table->dinner_inprogress = value;
 	pthread_mutex_unlock(table->race_mutex);
 }
 
-int read_dinner_inprogress(t_table *table)
+int	read_dinner_inprogress(t_table *table)
 {
-	int value;
+	int	value;
 
 	pthread_mutex_lock(table->race_mutex);
 	value = table->dinner_inprogress;
