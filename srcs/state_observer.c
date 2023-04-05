@@ -23,7 +23,7 @@ void	unlock_all_forks(t_table *table)
 		i++;
 	}
 }
-/*
+
 int	timeisup_state_observer(t_table *table)
 {
 	int			i;
@@ -41,7 +41,7 @@ int	timeisup_state_observer(t_table *table)
 		{
 			log_status(&(table->philos[i]), " died");
 			write_dinner_inprogress(0, table);
-			return (1);
+			exit(0);
 		}
 		i++;
 	}
@@ -65,7 +65,7 @@ int	eat_state_observer(t_table *table)
 	if (count_eatcount_constraint == table->nb_philo)
 	{
 		pthread_mutex_lock(table->logger_mutex);
-		table->dinner_inprogress = 0;
+		write_dinner_inprogress(0, table);
 		time = get_time_in_ms() - table->launch_time;
 		printf("%lldms all philo eat %d time\n", time, table->number_of_eats);
 		pthread_mutex_unlock(table->logger_mutex);
@@ -86,8 +86,7 @@ void	start_state_observer(t_table *table)
 	}
 	unlock_all_forks(table);
 }
-*/
-
+/*
 void	start_state_observer(t_table *table)
 {
 	int			i;
@@ -127,3 +126,4 @@ void	start_state_observer(t_table *table)
 	}
 	unlock_all_forks(table);
 }
+*/
