@@ -64,6 +64,7 @@ int	eat_state_observer(t_table *table)
 	}
 	if (count_eatcount_constraint == table->nb_philo)
 	{
+		printf("%d %d\n", count_eatcount_constraint, table->nb_philo);
 		pthread_mutex_lock(table->logger_mutex);
 		write_dinner_inprogress(0, table);
 		time = get_time_in_ms() - table->launch_time;
@@ -86,8 +87,8 @@ void	start_state_observer(t_table *table)
 	}
 	unlock_all_forks(table);
 }
-/*
-void	start_state_observer(t_table *table)
+
+void	go_state_observer(t_table *table)
 {
 	int			i;
 	long long	eat_expire_time;
@@ -126,4 +127,3 @@ void	start_state_observer(t_table *table)
 	}
 	unlock_all_forks(table);
 }
-*/
