@@ -24,71 +24,7 @@ void	unlock_all_forks(t_table *table)
 	}
 }
 
-int	timeisup_state_observer(t_table *table)
-{
-	int			i;
-	long long	eat_expire_time;
-	long long	eat_clock;
-
-	i = 0;
-	while (i < table->nb_philo)
-	{
-		eat_clock = read_eat_clock(table->philos[i].num, table);
-		if (eat_clock == -1)
-			break ;
-		eat_expire_time = get_time_in_ms() - eat_clock;
-		if (eat_expire_time > table->todie_time)
-		{
-			log_status(&(table->philos[i]), " died");
-			write_dinner_inprogress(0, table);
-			exit(0);
-		}
-		i++;
-	}
-	return (0);
-}
-
-int	eat_state_observer(t_table *table)
-{
-	int			i;
-	int			count_eatcount_constraint;
-	long long	time;
-
-	i = 0;
-	count_eatcount_constraint = 0;
-	while (i < table->nb_philo)
-	{
-		if (eatcount_constraint(&(table->philos[i]), table))
-			count_eatcount_constraint++;
-		i++ ;
-	}
-	if (count_eatcount_constraint == table->nb_philo)
-	{
-		printf("%d %d\n", count_eatcount_constraint, table->nb_philo);
-		pthread_mutex_lock(table->logger_mutex);
-		write_dinner_inprogress(0, table);
-		time = get_time_in_ms() - table->launch_time;
-		printf("%lldms all philo eat %d time\n", time, table->number_of_eats);
-		pthread_mutex_unlock(table->logger_mutex);
-		return (1);
-	}
-	return (0);
-}
-
 void	start_state_observer(t_table *table)
-{
-	while (table->dinner_inprogress)
-	{
-		if (timeisup_state_observer(table))
-			break ;
-		if (eat_state_observer(table))
-			break ;
-		usleep(100);
-	}
-	unlock_all_forks(table);
-}
-
-void	go_state_observer(t_table *table)
 {
 	int			i;
 	long long	eat_expire_time;
@@ -127,3 +63,48 @@ void	go_state_observer(t_table *table)
 	}
 	unlock_all_forks(table);
 }
+/*
+
+int timeisup_state_observer(int i, t_table *table)
+{
+    long long   eat_expire_time;
+    long long   eat_clock;
+
+        eat_clock = read_eat_clock(table->philos[i].num, table);
+        eat_expire_time = get_time_in_ms() - eat_clock;
+        if (eat_expire_time > table->todie_time)
+        {
+            log_status(&(table->philos[i]), " died");
+            write_dinner_inprogress(0, table);
+            return 1;
+        }
+    return (0);
+}
+
+void    start_state_observer(t_table *table)
+{
+    int         i;
+    long long   eat_clock;
+    int         count_eatcount_constraint;
+
+    while (read_dinner_inprogress(table))
+    {
+        i = 0;
+        count_eatcount_constraint = 0;
+        while (i < table->nb_philo)
+        {
+            eat_clock = read_eat_clock(i,table);
+            if (eat_clock == -1)
+                break ;
+            if (eatcount_constraint(&(table->philos[i]), table))
+                count_eatcount_constraint++;
+            else if (timeisup_state_observer(i,table))
+                exit(0);
+            i++;
+        }
+        if (count_eatcount_constraint == table->nb_philo)
+            break ;
+        usleep(1);
+    }
+}
+*/
