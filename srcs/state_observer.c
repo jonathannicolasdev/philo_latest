@@ -23,7 +23,7 @@ void	unlock_all_forks(t_table *table)
 		i++;
 	}
 }
-
+/*
 void	start_state_observer(t_table *table)
 {
 	int			i;
@@ -63,7 +63,7 @@ void	start_state_observer(t_table *table)
 	}
 	unlock_all_forks(table);
 }
-/*
+*/
 
 int timeisup_state_observer(int i, t_table *table)
 {
@@ -107,4 +107,3 @@ void    start_state_observer(t_table *table)
         usleep(1);
     }
 }
-*/

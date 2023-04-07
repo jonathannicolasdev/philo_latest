@@ -120,8 +120,10 @@ void	*dinner(void *void_philo)
 		&& !eatcount_constraint(philo, table))
 	{
 		eating(philo, table);
-		sleeping(philo);
-		thinking(philo);
+		if (read_dinner_inprogress(table) && !eatcount_constraint(philo, table))
+			sleeping(philo);
+		if (read_dinner_inprogress(table) && !eatcount_constraint(philo, table))
+			thinking(philo);
 	}
 	return (0);
 }
