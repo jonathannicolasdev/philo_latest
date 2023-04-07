@@ -107,4 +107,5 @@ void				log_status(t_philo *philo, char *str);
 
 void				print_philos(t_table *table);
 void				print_forks(t_table *table);
+void				free_all(t_table *table);
 #endif

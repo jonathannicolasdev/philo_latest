@@ -58,7 +58,10 @@ void	start_state_observer(t_table *table)
 			if (eatcount_constraint(&(table->philos[i]), table))
 				count_eatcount_constraint++;
 			else if (timeisup_state_observer(i, table))
-				exit(0);
+			{
+				free_all(table);
+				exit (0);
+			}
 			i++;
 		}
 		if (count_eatcount_constraint == table->nb_philo)

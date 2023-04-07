@@ -29,6 +29,16 @@ int	read_dinner_inprogress(t_table *table)
 	return (value);
 }
 
+void	free_all(t_table *table)
+{
+	free(table->fork_status);
+	free(table->fork_mutex);
+	free(table->logger_mutex);
+	free(table->global_mutex);
+	free(table->race_mutex);
+	free(table->philos);
+	free(table);
+}
 /*
 void	print_forks(t_table *table)
 {
