@@ -37,8 +37,11 @@ void	wait_dinner_end(t_table *table)
 		printf("philos %d finished\n", i);
 		i++;
 	}
+	free(table->fork_status);
 	free(table->fork_mutex);
 	free(table->logger_mutex);
+	free(table->global_mutex);
+	free(table->race_mutex);
 	free(table->philos);
 	free(table);
 }
