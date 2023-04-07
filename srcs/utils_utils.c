@@ -58,8 +58,10 @@ void	log_status(t_philo *philo, char *str)
 {
 	long long	time_in_ms;
 
+	if (!read_dinner_inprogress(philo->table))
+		return ;
 	pthread_mutex_lock(philo->table->logger_mutex);
 	time_in_ms = get_time_in_ms() - philo->table->launch_time;
-	printf("%lld %d %s\n", time_in_ms, philo->num, str);
+	printf("%lld %d %s\n", time_in_ms, philo->num + 1, str);
 	pthread_mutex_unlock(philo->table->logger_mutex);
 }
