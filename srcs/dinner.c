@@ -23,8 +23,13 @@ int	forks_taken(t_philo *philo, t_table *table)
 	{
 		table->fork_status[philo->left_fork] = TAKEN;
 		log_status(philo, "Has taken a fork");
-		table->fork_status[philo->right_fork] = TAKEN;
-		log_status(philo, "Has taken a fork");
+		if (philo->right_fork == philo->left_fork)
+			is_forks_assigned = 1;
+		else
+		{
+			table->fork_status[philo->right_fork] = TAKEN;
+			log_status(philo, "Has taken a fork");
+		}
 	}
 	else
 		is_forks_assigned = 1;
