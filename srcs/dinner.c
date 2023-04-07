@@ -6,7 +6,7 @@
 /*   By: jnicolas <marvin@42quebec.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 14:36:36 by jnicolas          #+#    #+#             */
-/*   Updated: 2023/03/27 16:16:01 by jnicolas         ###   ########.fr       */
+/*   Updated: 2023/04/07 15:59:22 by jnicolas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,8 +113,6 @@ void	*dinner(void *void_philo)
 
 	philo = void_philo;
 	table = philo->table;
-	//philo->eat_clock = get_time_in_ms();
-	//if read_dinner_in progress
 	write_eat_clock(philo->num, get_time_in_ms(), table);
 	while (philo->table->dinner_inprogress \
 		&& !eatcount_constraint(philo, table))

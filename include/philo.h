@@ -6,7 +6,7 @@
 /*   By: jnicolas <marvin@42quebec.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 17:05:03 by jnicolas          #+#    #+#             */
-/*   Updated: 2023/03/16 16:18:32 by jnicolas         ###   ########.fr       */
+/*   Updated: 2023/04/07 18:43:59 by jnicolas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include <sys/time.h>
 # include <unistd.h>
 
-typedef enum
+typedef enum e_status
 {
 	EAT,
 	SLEEP,
@@ -27,13 +27,13 @@ typedef enum
 	DEAD
 }					t_status;
 
-typedef enum
+typedef enum e_fork_status
 {
 	FREE,
 	TAKEN
 }					t_fork_status;
 
-typedef struct
+typedef struct s_table
 {
 	int				nb_philo;
 	int				todie_time;
@@ -87,7 +87,7 @@ void				thinking(t_philo *philo);
 void				sleeping(t_philo *philo);
 //stateobserver.c
 void				unlock_all_forks(t_table *table);
-int 				eatcount_constraint(t_philo *philo, t_table *table);
+int					eatcount_constraint(t_philo *philo, t_table *table);
 void				start_state_observer(t_table *table);
 //utils.c
 int					ft_atoi(const char *nptr);
@@ -95,12 +95,12 @@ int					round_left(int index, int n);
 int					round_right(int index, int n);
 void				write_status(int num_philo, t_status value, t_table *table);
 t_status			read_status(int num_philo, t_table *table);
-void 				write_dinner_inprogress(int value, t_table *table);
-int 				read_dinner_inprogress(t_table *table);
+void				write_dinner_inprogress(int value, t_table *table);
+int					read_dinner_inprogress(t_table *table);
 
 void				write_eat_clock(int num_philo, \
 					long long value, t_table *table);
-long long 			read_eat_clock(int num_philo, t_table *table);
+long long			read_eat_clock(int num_philo, t_table *table);
 long long			get_time_in_ms(void);
 void				sleep_duration(long long duration);
 void				log_status(t_philo *philo, char *str);
