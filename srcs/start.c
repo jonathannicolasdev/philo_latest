@@ -34,7 +34,6 @@ void	wait_dinner_end(t_table *table)
 	while (i < table->nb_philo)
 	{
 		pthread_join(table->philos[i].thread, NULL);
-		printf("philos %d finished\n", i);
 		i++;
 	}
 	free(table->fork_status);
