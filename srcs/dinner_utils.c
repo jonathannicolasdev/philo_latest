@@ -20,7 +20,7 @@ void	thinking(t_philo *philo)
 
 void	sleeping(t_philo *philo)
 {
-	log_status(philo, "is sleeping");
+	//log_status(philo, "is sleeping");
 	sleep_duration(philo->table->sleep_time);
 }
 

@@ -99,6 +99,7 @@ void	eating(t_philo *philo, t_table *table)
 	sleep_duration(table->eat_time);
 	pthread_mutex_lock(table->global_mutex);
 	philo->status = SLEEP;
+	log_status(philo, "is sleeping");
 	table->fork_status[philo->left_fork] = FREE;
 	table->fork_status[philo->right_fork] = FREE;
 	notify_right_fork_release(table, philo->num);
