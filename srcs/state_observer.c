@@ -33,7 +33,8 @@ int	timeisup_state_observer(int i, t_table *table)
 	eat_expire_time = get_time_in_ms() - eat_clock;
 	if (eat_expire_time > table->todie_time)
 	{
-		printf("%lld %d %s\n", get_time_in_ms() - table->launch_time, i + 1, "died");
+		printf("%lld %d %s\n", get_time_in_ms() - \
+		table->launch_time, i + 1, "died");
 		write_dinner_inprogress(0, table);
 		return (1);
 	}
@@ -58,10 +59,7 @@ void	start_state_observer(t_table *table)
 			if (eatcount_constraint(&(table->philos[i]), table))
 				count_eatcount_constraint++;
 			else if (timeisup_state_observer(i, table))
-			{
 				free_all(table);
-				exit (0);
-			}
 			i++;
 		}
 		if (count_eatcount_constraint == table->nb_philo)

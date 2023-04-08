@@ -38,6 +38,7 @@ void	free_all(t_table *table)
 	free(table->race_mutex);
 	free(table->philos);
 	free(table);
+	exit(0);
 }
 /*
 void	print_forks(t_table *table)
