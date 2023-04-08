@@ -98,10 +98,10 @@ void	eating(t_philo *philo, t_table *table)
 	log_status(philo, "is eating");
 	sleep_duration(table->eat_time);
 	pthread_mutex_lock(table->global_mutex);
-	table->fork_status[philo->left_fork] = FREE;
-	table->fork_status[philo->right_fork] = FREE;
 	philo->status = SLEEP;
 	log_status(philo, "is sleeping");
+	table->fork_status[philo->left_fork] = FREE;
+	table->fork_status[philo->right_fork] = FREE;
 	notify_right_fork_release(table, philo->num);
 	notify_left_fork_release(table, philo->num);
 	pthread_mutex_unlock(table->global_mutex);
@@ -123,6 +123,7 @@ void	*dinner(void *void_philo)
 			sleeping(philo);
 		if (read_dinner_inprogress(table) && !eatcount_constraint(philo, table))
 			thinking(philo);
+		usleep(50);
 	}
 	return (0);
 }
