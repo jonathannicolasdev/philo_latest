@@ -106,7 +106,7 @@ void	eating(t_philo *philo, t_table *table)
 	notify_left_fork_release(table, philo->num);
 	pthread_mutex_unlock(table->global_mutex);
 }
-
+/*
 void	*dinner(void *void_philo)
 {
 	t_philo	*philo;
@@ -127,3 +127,4 @@ void	*dinner(void *void_philo)
 	}
 	return (0);
 }
+*/

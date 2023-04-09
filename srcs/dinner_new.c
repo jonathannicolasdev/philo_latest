@@ -16,7 +16,7 @@ int	grab_forks(t_philo *philo, t_table *table)
 {
 	if (table->dinner_inprogress == 0)
 		return (0);
-	pthread_mutex_lock(&table->global_mutex);
+	pthread_mutex_lock(table->global_mutex);
 	if (table->fork_status[philo->left_fork] == FREE && table->fork_status[philo->right_fork] == FREE)
 	{
 		pthread_mutex_lock(&table->fork_mutex[philo->left_fork]);
@@ -30,35 +30,26 @@ int	grab_forks(t_philo *philo, t_table *table)
         sleep_duration(table->eat_time);
 		table->fork_status[philo->left_fork] = FREE;
 		table->fork_status[philo->right_fork] = FREE;
-        pthread_mutex_unlock(&table->global_mutex);
+        pthread_mutex_unlock(table->global_mutex);
 		pthread_mutex_unlock(&table->fork_mutex[philo->left_fork]);
 		pthread_mutex_unlock(&table->fork_mutex[philo->right_fork]);
         philo->counter_of_eats++;
 		return (0);
 	}
-	pthread_mutex_unlock(&table->global_mutex);
+	pthread_mutex_unlock(table->global_mutex);
 	return (1);
 }
 
-void	go_to_sleep(t_philo *philo, t_param *param)
+void	go_to_sleep(t_philo *philo, t_table *table)
 {
-	if (param->is_all_safe == 0)
-		param->is_all_safe = 0;
-	else
-	{
-		ft_print(param, philo, "is sleeping");
-		ft_wait(param, param->time_to_sleep);
-	}
+    log_status(philo, "is sleeping");
+    sleep_duration(table->sleep_time);
 }
 
-void	start_to_think(t_philo *philo, t_param *param)
+void	start_to_think(t_philo *philo, t_table *table)
 {
-	if (param->is_all_safe == 0)
-		param->is_all_safe = 0;
-	else
-	{
-		ft_print(param, philo, "is thinking");
-	}
+    (void)table;
+    log_status(philo, "is thinking");
 }
 
 void    *dinner(void *void_philo)
@@ -69,7 +60,7 @@ void    *dinner(void *void_philo)
     philo = (t_philo *)void_philo;
     table = philo->table;
     if (philo->num % 2 != 1)
-        usleep(50);
+        sleep_duration(table->eat_time);
     if (table->nb_philo == 1)
 	{
 		pthread_mutex_lock(&table->fork_mutex[0]);

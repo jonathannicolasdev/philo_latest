@@ -24,7 +24,7 @@ void	put_forks(t_table *table)
 	while (i < table->nb_philo)
 	{
 		pthread_mutex_init(&fork_mutex[i], NULL);
-		pthread_mutex_lock(&fork_mutex[i]);
+		//pthread_mutex_lock(&fork_mutex[i]);
 		fork_status[i] = FREE;
 		i++;
 	}
