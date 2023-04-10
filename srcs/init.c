@@ -42,14 +42,14 @@ void	seat_philos(t_table *table)
 	while (i < table->nb_philo)
 	{
 		philos[i].num = i;
-		philos[i].counter_of_eats = 0;
 		philos[i].left_fork = i;
 		philos[i].right_fork = round_right(i, table->nb_philo);
 		philos[i].table = table;
-		philos[i].status = THINK;
-		philos[i].die_clock = -1;
 		philos[i].eat_clock = -1;
-		philos[i].sleep_clock = -1;
+		philos[i].counter_of_eats = 0;
+		//philos[i].sleep_clock = -1;
+		//philos[i].die_clock = -1;
+		//philos[i].status = THINK;
 		i++;
 	}
 	table->philos = philos;
@@ -74,6 +74,7 @@ t_table	*create_table(char **argv)
 	init_logger(table);
 	init_global_mutex(table);
 	init_race_mutex(table);
+	init_eat_mutex(table);
 	seat_philos(table);
 	return (table);
 }

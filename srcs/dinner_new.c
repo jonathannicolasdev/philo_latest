@@ -27,10 +27,10 @@ int	grab_forks(t_philo *philo, t_table *table)
 		table->fork_status[philo->right_fork] = TAKEN;
         philo->eat_clock = get_time_in_ms();
         log_status(philo, "is eating");
+        pthread_mutex_unlock(table->global_mutex);
         sleep_duration(table->eat_time);
 		table->fork_status[philo->left_fork] = FREE;
 		table->fork_status[philo->right_fork] = FREE;
-        pthread_mutex_unlock(table->global_mutex);
 		pthread_mutex_unlock(&table->fork_mutex[philo->left_fork]);
 		pthread_mutex_unlock(&table->fork_mutex[philo->right_fork]);
         philo->counter_of_eats++;
@@ -59,8 +59,10 @@ void    *dinner(void *void_philo)
 
     philo = (t_philo *)void_philo;
     table = philo->table;
-    if (philo->num % 2 != 1)
-        sleep_duration(table->eat_time);
+    if (philo->num % 2  == 1)
+    {
+        usleep(1000);
+    }
     if (table->nb_philo == 1)
 	{
 		pthread_mutex_lock(&table->fork_mutex[0]);
@@ -75,8 +77,7 @@ void    *dinner(void *void_philo)
             usleep(100);
         go_to_sleep(philo, table);
         start_to_think(philo, table);
-        usleep(100);
+        usleep(500);
     }
     return (0);    
 } 
-

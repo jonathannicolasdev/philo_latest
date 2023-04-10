@@ -47,6 +47,7 @@ typedef struct s_table
 	pthread_mutex_t	*logger_mutex;
 	pthread_mutex_t	*global_mutex;
 	pthread_mutex_t	*race_mutex;
+	pthread_mutex_t	*eat_mutex;
 	struct _philo	*philos;
 }					t_table;
 
@@ -71,6 +72,7 @@ int					check_args(int argc, char **argv);
 void				init_logger(t_table *table);
 void				init_global_mutex(t_table *table);
 void				init_race_mutex(t_table *table);
+void				init_eat_mutex(t_table *table);
 void				seat_philos(t_table *table);
 void				put_forks(t_table *table);
 t_table				*create_table(char **argv);

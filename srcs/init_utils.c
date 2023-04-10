@@ -38,3 +38,12 @@ void	init_race_mutex(t_table *table)
 	pthread_mutex_init(racemutex, NULL);
 	table->race_mutex = racemutex;
 }
+
+void	init_eat_mutex(t_table *table)
+{
+	pthread_mutex_t	*eatmutex;
+
+	eatmutex = malloc(sizeof(pthread_mutex_t));
+	pthread_mutex_init(eatmutex, NULL);
+	table->race_mutex = eatmutex;
+}
