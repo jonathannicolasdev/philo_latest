@@ -54,6 +54,21 @@ void	sleep_duration(long long duration)
 	}
 }
 
+void	smart_sleep_duration(long long duration, t_table *table)
+{
+	long long	start;
+	long long	end;
+      
+	start = get_time_in_ms();
+	while (read_dinner_inprogress(table))
+	{
+		end = get_time_in_ms();
+		if ((end - start) >= duration)
+			break ;
+		usleep(30);
+	}
+}
+
 void	log_status(t_philo *philo, char *str)
 {
 	long long	time_in_ms;

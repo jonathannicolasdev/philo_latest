@@ -71,7 +71,7 @@ void    *dinner(void *void_philo)
 		pthread_mutex_unlock(&table->fork_mutex[0]);
 		return (0);
 	}
-    while (table->dinner_inprogress)
+    while (table->dinner_inprogress && !eatcount_constraint(philo, table))
     {
         while (grab_forks(philo, table))
             usleep(100);
