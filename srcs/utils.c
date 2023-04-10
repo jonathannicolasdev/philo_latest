@@ -71,3 +71,20 @@ t_status	read_status(int num_philo, t_table *table)
 	pthread_mutex_unlock(table->race_mutex);
 	return (value);
 }
+
+void	write_fork_status(int fork_id, t_fork_status value, t_table *table)
+{
+	pthread_mutex_lock(table->race_mutex);
+	table->fork_status[fork_id] = value;
+	pthread_mutex_unlock(table->race_mutex);
+}
+
+t_fork_status	read_fork_status(int fork_id, t_table *table)
+{
+	t_fork_status	value;
+
+	pthread_mutex_lock(table->race_mutex);
+	value = table->fork_status[fork_id];
+	pthread_mutex_unlock(table->race_mutex);
+	return (value);
+}

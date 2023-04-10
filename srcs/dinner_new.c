@@ -14,10 +14,11 @@
 
 int	grab_forks(t_philo *philo, t_table *table)
 {
-	if (table->dinner_inprogress == 0)
+	if (read_dinner_inprogress(table) == 0)
 		return (0);
 	pthread_mutex_lock(table->global_mutex);
-	if (table->fork_status[philo->left_fork] == FREE && table->fork_status[philo->right_fork] == FREE)
+	//if (table->fork_status[philo->left_fork] == FREE && table->fork_status[philo->right_fork] == FREE)
+    if (read_fork_status(philo->left_fork, table) == FREE && read_fork_status(philo->right_fork, table) == FREE)
 	{
 		pthread_mutex_lock(&table->fork_mutex[philo->left_fork]);
 		log_status(philo, "has taken a fork");
@@ -25,12 +26,15 @@ int	grab_forks(t_philo *philo, t_table *table)
 		pthread_mutex_lock(&table->fork_mutex[philo->right_fork]);
 		log_status(philo, "has taken a fork");
 		table->fork_status[philo->right_fork] = TAKEN;
-        philo->eat_clock = get_time_in_ms();
+        write_eat_clock(philo->num, get_time_in_ms(), table);
+        //philo->eat_clock = get_time_in_ms();
         log_status(philo, "is eating");
         pthread_mutex_unlock(table->global_mutex);
         sleep_duration(table->eat_time);
-		table->fork_status[philo->left_fork] = FREE;
-		table->fork_status[philo->right_fork] = FREE;
+        write_fork_status(philo->left_fork, FREE, table);
+        write_fork_status(philo->right_fork, FREE, table);
+		//table->fork_status[philo->left_fork] = FREE;
+		//table->fork_status[philo->right_fork] = FREE;
 		pthread_mutex_unlock(&table->fork_mutex[philo->left_fork]);
 		pthread_mutex_unlock(&table->fork_mutex[philo->right_fork]);
         philo->counter_of_eats++;
@@ -71,7 +75,7 @@ void    *dinner(void *void_philo)
 		pthread_mutex_unlock(&table->fork_mutex[0]);
 		return (0);
 	}
-    while (table->dinner_inprogress && !eatcount_constraint(philo, table))
+    while (read_dinner_inprogress(table) && !eatcount_constraint(philo, table))
     {
         while (grab_forks(philo, table))
             usleep(100);

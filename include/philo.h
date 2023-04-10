@@ -97,6 +97,8 @@ int					round_left(int index, int n);
 int					round_right(int index, int n);
 void				write_status(int num_philo, t_status value, t_table *table);
 t_status			read_status(int num_philo, t_table *table);
+void				write_fork_status(int fork_id, t_fork_status value, t_table *table);
+t_fork_status		read_fork_status(int fork_id, t_table *table);
 void				write_dinner_inprogress(int value, t_table *table);
 int					read_dinner_inprogress(t_table *table);
 
