@@ -10,7 +10,7 @@ HEADER	= -Iinclude
 
 CC 		= gcc
 CFLAGS 	= -Wall -Wextra -Werror -g
-SANIT   = #-fsanitize=thread
+SANIT   = -fsanitize=thread
 
 .c.o:		
 					@$(CC) ${CFLAGS} ${SANIT} ${HEADER} -c $< -o $(<:.c=.o)

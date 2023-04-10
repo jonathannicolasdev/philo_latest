@@ -37,7 +37,9 @@ int	grab_forks(t_philo *philo, t_table *table)
 		//table->fork_status[philo->right_fork] = FREE;
 		pthread_mutex_unlock(&table->fork_mutex[philo->left_fork]);
 		pthread_mutex_unlock(&table->fork_mutex[philo->right_fork]);
+        pthread_mutex_lock(table->race_mutex);
         philo->counter_of_eats++;
+        pthread_mutex_unlock(table->race_mutex);
 		return (0);
 	}
 	pthread_mutex_unlock(table->global_mutex);
