@@ -45,7 +45,7 @@ void	seat_philos(t_table *table)
 		philos[i].left_fork = i;
 		philos[i].right_fork = round_right(i, table->nb_philo);
 		philos[i].table = table;
-		philos[i].eat_clock = -1;
+		philos[i].eat_clock = get_time_in_ms();
 		philos[i].counter_of_eats = 0;
 		//philos[i].sleep_clock = -1;
 		//philos[i].die_clock = -1;

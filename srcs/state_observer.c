@@ -44,7 +44,7 @@ int	timeisup_state_observer(int i, t_table *table)
 void	*start_state_observer(void *arg)
 {
 	int			i;
-	long long	eat_clock;
+	//long long	eat_clock;
 	int			count_eatcount_constraint;
 	t_table		*table;
 
@@ -55,9 +55,9 @@ void	*start_state_observer(void *arg)
 		count_eatcount_constraint = 0;
 		while (i < table->nb_philo)
 		{
-			eat_clock = read_eat_clock(i, table);
-			if (eat_clock == -1)
-				break ;
+			//eat_clock = read_eat_clock(i, table);
+			//if (eat_clock == -1)
+			//	break ;
 			if (eatcount_constraint(&(table->philos[i]), table))
 				count_eatcount_constraint++;
 			else if (timeisup_state_observer(i, table))
