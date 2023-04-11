@@ -27,15 +27,17 @@ void	start_dinner(t_table *table)
 
 void	wait_dinner_end(t_table *table)
 {
-	int	i;
+	int			i;
+	pthread_t	thread_observer;
 
 	i = 0;
-	start_state_observer(table);
+	pthread_create(&thread_observer, NULL, start_state_observer, table);
 	while (i < table->nb_philo)
 	{
 		pthread_join(table->philos[i].thread, NULL);
 		i++;
 	}
+	pthread_join(thread_observer, NULL);
 	free(table->fork_status);
 	free(table->fork_mutex);
 	free(table->logger_mutex);

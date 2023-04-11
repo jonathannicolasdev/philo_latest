@@ -41,12 +41,14 @@ int	timeisup_state_observer(int i, t_table *table)
 	return (0);
 }
 
-void	start_state_observer(t_table *table)
+void	*start_state_observer(void *arg)
 {
 	int			i;
 	long long	eat_clock;
 	int			count_eatcount_constraint;
+	t_table		*table;
 
+	table = (t_table *)arg;
 	while (read_dinner_inprogress(table))
 	{
 		i = 0;
@@ -59,11 +61,12 @@ void	start_state_observer(t_table *table)
 			if (eatcount_constraint(&(table->philos[i]), table))
 				count_eatcount_constraint++;
 			else if (timeisup_state_observer(i, table))
-				free_all(table);
+				pthread_exit(NULL);
 			i++;
 		}
 		if (count_eatcount_constraint == table->nb_philo)
 			break ;
 		usleep(1);
 	}
+	return NULL;
 }

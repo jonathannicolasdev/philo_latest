@@ -90,7 +90,7 @@ void				sleeping(t_philo *philo);
 //stateobserver.c
 void				unlock_all_forks(t_table *table);
 int					eatcount_constraint(t_philo *philo, t_table *table);
-void				start_state_observer(t_table *table);
+void				*start_state_observer(void *arg);
 //utils.c
 int					ft_atoi(const char *nptr);
 int					round_left(int index, int n);
