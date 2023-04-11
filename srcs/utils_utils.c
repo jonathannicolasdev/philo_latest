@@ -6,7 +6,7 @@
 /*   By: jnicolas <marvin@42quebec.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 14:40:07 by jnicolas          #+#    #+#             */
-/*   Updated: 2023/04/02 20:53:00 by jnicolas         ###   ########.fr       */
+/*   Updated: 2023/04/11 18:09:39 by jnicolas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,21 +46,6 @@ void	sleep_duration(long long duration)
 
 	start = get_time_in_ms();
 	while (1)
-	{
-		end = get_time_in_ms();
-		if ((end - start) >= duration)
-			break ;
-		usleep(30);
-	}
-}
-
-void	smart_sleep_duration(long long duration, t_table *table)
-{
-	long long	start;
-	long long	end;
-      
-	start = get_time_in_ms();
-	while (read_dinner_inprogress(table))
 	{
 		end = get_time_in_ms();
 		if ((end - start) >= duration)

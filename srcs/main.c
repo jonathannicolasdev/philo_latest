@@ -29,8 +29,7 @@ int	check_args(int argc, char **argv)
 			at least 1.\n"));
 	}
 	else
-		return (printf("Arguments: nb_philo todie_time eat_time sleep_time\nOptional input :\
-		number_of_eats\n"));
+		return (printf("nb_philo todie_time eat_time sleep_time nb_of_eats\n"));
 	return (0);
 }
 

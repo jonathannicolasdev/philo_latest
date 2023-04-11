@@ -45,5 +45,5 @@ void	init_eat_mutex(t_table *table)
 
 	eatmutex = malloc(sizeof(pthread_mutex_t));
 	pthread_mutex_init(eatmutex, NULL);
-	table->race_mutex = eatmutex;
+	table->eat_mutex = eatmutex;
 }

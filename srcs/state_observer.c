@@ -6,7 +6,7 @@
 /*   By: jnicolas <marvin@42quebec.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 16:02:56 by jnicolas          #+#    #+#             */
-/*   Updated: 2023/04/07 16:13:13 by jnicolas         ###   ########.fr       */
+/*   Updated: 2023/04/11 19:02:14 by jnicolas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ int	timeisup_state_observer(int i, t_table *table)
 void	*start_state_observer(void *arg)
 {
 	int			i;
-	//long long	eat_clock;
 	int			count_eatcount_constraint;
 	t_table		*table;
 
@@ -55,18 +54,15 @@ void	*start_state_observer(void *arg)
 		count_eatcount_constraint = 0;
 		while (i < table->nb_philo)
 		{
-			//eat_clock = read_eat_clock(i, table);
-			//if (eat_clock == -1)
-			//	break ;
 			if (eatcount_constraint(&(table->philos[i]), table))
 				count_eatcount_constraint++;
 			else if (timeisup_state_observer(i, table))
-				pthread_exit(NULL);
+				break ;
 			i++;
 		}
 		if (count_eatcount_constraint == table->nb_philo)
 			break ;
 		usleep(1);
 	}
-	return NULL;
+	return (NULL);
 }

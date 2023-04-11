@@ -43,6 +43,7 @@ void	wait_dinner_end(t_table *table)
 	free(table->logger_mutex);
 	free(table->global_mutex);
 	free(table->race_mutex);
+	free(table->eat_mutex);
 	free(table->philos);
 	free(table);
 }

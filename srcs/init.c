@@ -6,7 +6,7 @@
 /*   By: jnicolas <marvin@42quebec.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 14:37:00 by jnicolas          #+#    #+#             */
-/*   Updated: 2023/04/07 16:10:25 by jnicolas         ###   ########.fr       */
+/*   Updated: 2023/04/11 17:51:16 by jnicolas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ void	put_forks(t_table *table)
 	while (i < table->nb_philo)
 	{
 		pthread_mutex_init(&fork_mutex[i], NULL);
-		//pthread_mutex_lock(&fork_mutex[i]);
 		fork_status[i] = FREE;
 		i++;
 	}
@@ -47,9 +46,6 @@ void	seat_philos(t_table *table)
 		philos[i].table = table;
 		philos[i].eat_clock = get_time_in_ms();
 		philos[i].counter_of_eats = 0;
-		//philos[i].sleep_clock = -1;
-		//philos[i].die_clock = -1;
-		//philos[i].status = THINK;
 		i++;
 	}
 	table->philos = philos;
